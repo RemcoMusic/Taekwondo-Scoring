@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>StartUp.qml</file>
+        <file>StartUpForm.ui.qml</file>
+        <file>GeneralSetup.qml</file>
+        <file>GeneralSetupForm.ui.qml</file>
+    </qresource>
+</RCC>
