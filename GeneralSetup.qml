@@ -18,6 +18,7 @@ GeneralSetupForm {
 
     Connections {
         target: mouseAreaMakeServer
-        function onClicked(mouse) { initializeServer.receiveSetupData(textInputMatchName.text) }
+        function onClicked(mouse) { connection.onReceivedStartSignal(textInputMatchName.text,
+                                                                     mainLoader.source = "MatchSettings.qml") }
     }
 }

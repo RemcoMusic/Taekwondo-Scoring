@@ -5,7 +5,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "initializeserver.h"
+#include "connection.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    InitializeServer *initializeServer = new InitializeServer;
+    Connection connection;
 
     QGuiApplication app(argc, argv);
 
@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
-    engine.rootContext()->setContextProperty("initializeServer", initializeServer);
+    QQmlContext * rootContext = engine.rootContext();
+    rootContext->setContextProperty("connection", &connection);
     engine.load(url);
 
     return app.exec();

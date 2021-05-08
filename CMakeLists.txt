@@ -31,8 +31,8 @@ set(TS_FILES Taekwondo-Scoring_en_US.ts)
 
 set(PROJECT_SOURCES
         main.cpp
-        initializeserver.cpp
-        initializeserver.h
+         connection.cpp
+         connection.h
         qml.qrc
         ${TS_FILES}
 )
