@@ -30,9 +30,10 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick LinguistTools REQUIRED)
 set(TS_FILES Taekwondo-Scoring_en_US.ts)
 
 set(PROJECT_SOURCES
-        main.cpp         
-         connection.h connection.cpp
-         gamestate.h gamestate.cpp
+        main.h main.cpp
+        ui/connection.h ui/connection.cpp
+        server/gamestate.h server/gamestate.cpp
+        server/gamestatemanager.h server/gamestatemanager.cpp
         qml.qrc
         ${TS_FILES}
 )

@@ -5,7 +5,7 @@
 #include <QLocale>
 #include <QTranslator>
 
-#include "connection.h"
+#include "ui/connection.h"
 
 int main(int argc, char *argv[])
 {
