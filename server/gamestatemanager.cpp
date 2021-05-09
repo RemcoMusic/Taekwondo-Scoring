@@ -1,5 +1,7 @@
 #include "gamestatemanager.h"
 #include "QDebug"
+#include "QJsonDocument"
+#include "QJsonObject"
 
 GameStateManager::GameStateManager()
 {
@@ -8,25 +10,75 @@ GameStateManager::GameStateManager()
 
 
 /*Makes a stream of data wich represents the gamestate */
-size_t GameStateManager::serialize(QByteArray &buf)
+size_t GameStateManager::serialize(QJsonDocument &json, GameStatePartition partition)
 {
-    buf.clear();
-    buf.append((const char*)&gameState,sizeof (GameState));
-    return buf.size();
+    //a bit tedious.. but it works...
+    QJsonObject j;
+    j["version"] = gameState.version;
+    j["matchName"] = gameState.matchName;
+    j["creationDate"] = gameState.creationDate;
+
+
+    switch (partition) {
+    case(GameStatePartition::NOTHING):
+        json.setObject(j);
+        return j.size();
+    break;
+    case(GameStatePartition::ALL):
+        //sync every variable
+
+    case(GameStatePartition::POINTS): // will also be called when ALL needs to be serialized
+        //sync only the points/score. in case only the score needs to be serialized
+    break;
+    }
+
+    json.setObject(j);
+    return j.size();
 }
 
 /*fills the gamestate with from the data received from server*/
-void GameStateManager::deSerialize(QByteArray &buf)
+void GameStateManager::deSerialize(QJsonDocument &json)
 {
-    memcpy(&gameState,buf.data(),sizeof (GameState));
+   QJsonObject j = json.object();
+
+   if(j.value("version")!=gameState.version){
+       qDebug() << "ERR. GAME CLIENT VERSIONS DO NOT MATCH";
+       exit(-69);
+   }
+
+   foreach(const QString& key, j.keys()) {
+       QJsonValue value = j.value(key);
+       //qDebug() << "Key = " << key << ", Value = " << value.toString();
+
+        if(key == "creationDate"){  gameState.creationDate = value.toString();} else
+        if(key == "version"){       gameState.version = value.toString();} else
+        if(key == "matchName"){     gameState.matchName = value.toString();} else
+        qDebug() << "ERR. Key = " << key << ", Value = " << value.toString() << ":     COULD NOT BE DESERIALIZED";
+   }
 }
+
+//returns a pointer to the gamestate on this device.
+GameState *GameStateManager::getGamestate()
+{
+    return &gameState;
+}
+
+
+
+
+
+
+
+
 
 /*playing around with the class, without UI*/
 void GameStateManager::quickTesting()
 {
-    strcpy(gameState.matchName,"LOL");
-    strcpy(gameState.creationDate,"Yesterday");
-    gameState.version = 1;
+    //set temp gamestate data
+    gameState.version = QString::number(1);
+    gameState.matchName = "Match#1";
+    gameState.creationDate = QDateTime::currentDateTime().toString();
+
 
 
 
@@ -37,33 +89,50 @@ void GameStateManager::quickTesting()
     qDebug() << gameState.version <<"\n";
 
     //serialize the gameState
-    QByteArray b;
-    serialize(b);
+    QJsonDocument doc;
+    serialize(doc, GameStatePartition::ALL);
 
-    //copy the data (network emulation)
-    QByteArray c;
-    c = b;
+    qDebug() << "formatted JSON \n --------------";
+    qDebug() << doc.toJson(QJsonDocument::Indented);
+    qDebug() << "--------------<\n";
 
-    // clear the old data
-    b.clear();
+    //copy data
+    QJsonDocument copy = doc;
 
-    //set the gameState from the "network" data
-    deSerialize(c);
+    //deserialize data
+    deSerialize(copy);
 
-    //test results
-    qDebug() << "Copied Gamestate: ";
+
+    qDebug() << "Data after deserialisation: ";
     qDebug() << gameState.matchName;
     qDebug() << gameState.creationDate;
-    qDebug() << gameState.version << "\n";
+    qDebug() << gameState.version <<"\n";
 
-    //check if old (cleared) data is really cleared
 
-    //set the gameState from the "network" data
-    deSerialize(b);
-    qDebug() << "Old Gamestate: ";
-    qDebug() << gameState.matchName;
-    qDebug() << gameState.creationDate;
-    qDebug() << gameState.version << "\n";
+//    //copy the data (network emulation)
+//    QByteArray c;
+//    c = b;
+
+//    // clear the old data
+//    b.clear();
+
+//    //set the gameState from the "network" data
+//    deSerialize(c);
+
+//    //test results
+//    qDebug() << "Copied Gamestate: ";
+//    qDebug() << gameState.matchName;
+//    qDebug() << gameState.creationDate;
+//    qDebug() << gameState.version << "\n";
+
+//    //check if old (cleared) data is really cleared
+
+//    //set the gameState from the "network" data
+//    deSerialize(b);
+//    qDebug() << "Old Gamestate: ";
+//    qDebug() << gameState.matchName;
+//    qDebug() << gameState.creationDate;
+//    qDebug() << gameState.version << "\n";
 
 
 }

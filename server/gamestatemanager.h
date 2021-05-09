@@ -2,14 +2,14 @@
 #define GAMESTATEMANAGER_H
 
 #include "gamestate.h"
-#include "QByteArray"
+#include "QJsonDocument"
 
 class GameStateManager
 {
 public:
     GameStateManager();
-    size_t serialize(QByteArray &buf);
-    void deSerialize(QByteArray &buf);
+    size_t serialize(QJsonDocument &json, GameStatePartition partition);
+    void deSerialize(QJsonDocument &json);
 
    GameState* getGamestate();
 
