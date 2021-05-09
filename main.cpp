@@ -6,6 +6,7 @@
 #include <QTranslator>
 
 #include "ui/connection.h"
+#include "server/gamestatemanager.h" //temp.. when testing
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +38,10 @@ int main(int argc, char *argv[])
     QQmlContext * rootContext = engine.rootContext();
     rootContext->setContextProperty("connection", &connection);
     engine.load(url);
+
+    GameStateManager g;
+    g.quickTesting();
+
 
     return app.exec();
 }
