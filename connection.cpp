@@ -8,7 +8,8 @@ Connection::Connection(QObject *parent) : QObject(parent) ,
 
 void Connection::onReceivedStartSignal(QString matchName)
 {
-    qDebug() << matchName;
+    qDebug() << "Match name: "<< matchName;
+    setUniqueID("MatchName: " + matchName);
 }
 
 QString Connection::uniqueID()
