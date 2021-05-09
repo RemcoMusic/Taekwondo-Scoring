@@ -32,7 +32,7 @@ set(TS_FILES Taekwondo-Scoring_en_US.ts)
 set(PROJECT_SOURCES
         main.h main.cpp
         ui/connection.h ui/connection.cpp
-        server/gamestate.h server/gamestate.cpp
+        server/gamestate.h
         server/gamestatemanager.h server/gamestatemanager.cpp
         qml.qrc
         ${TS_FILES}
