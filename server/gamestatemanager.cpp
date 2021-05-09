@@ -108,31 +108,4 @@ void GameStateManager::quickTesting()
     qDebug() << gameState.creationDate;
     qDebug() << gameState.version <<"\n";
 
-
-//    //copy the data (network emulation)
-//    QByteArray c;
-//    c = b;
-
-//    // clear the old data
-//    b.clear();
-
-//    //set the gameState from the "network" data
-//    deSerialize(c);
-
-//    //test results
-//    qDebug() << "Copied Gamestate: ";
-//    qDebug() << gameState.matchName;
-//    qDebug() << gameState.creationDate;
-//    qDebug() << gameState.version << "\n";
-
-//    //check if old (cleared) data is really cleared
-
-//    //set the gameState from the "network" data
-//    deSerialize(b);
-//    qDebug() << "Old Gamestate: ";
-//    qDebug() << gameState.matchName;
-//    qDebug() << gameState.creationDate;
-//    qDebug() << gameState.version << "\n";
-
-
 }
