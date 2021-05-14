@@ -4,58 +4,58 @@
 <context>
     <name>GeneralSetupForm.ui</name>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="42"/>
+        <location filename="GeneralSetupForm.ui.qml" line="60"/>
         <source>Match Name:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="55"/>
+        <location filename="GeneralSetupForm.ui.qml" line="73"/>
         <source>#Match1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="67"/>
+        <location filename="GeneralSetupForm.ui.qml" line="85"/>
         <source>Number of Juries:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="118"/>
+        <location filename="GeneralSetupForm.ui.qml" line="136"/>
         <source>Continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="144"/>
-        <location filename="GeneralSetupForm.ui.qml" line="318"/>
+        <location filename="GeneralSetupForm.ui.qml" line="162"/>
+        <location filename="GeneralSetupForm.ui.qml" line="348"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="172"/>
+        <location filename="GeneralSetupForm.ui.qml" line="190"/>
         <source>What should this device be?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="190"/>
+        <location filename="GeneralSetupForm.ui.qml" line="210"/>
         <source>Host</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="214"/>
+        <location filename="GeneralSetupForm.ui.qml" line="236"/>
         <source>Jury</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="238"/>
+        <location filename="GeneralSetupForm.ui.qml" line="262"/>
         <source>Scoreboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="262"/>
+        <location filename="GeneralSetupForm.ui.qml" line="288"/>
         <source>Headless Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="GeneralSetupForm.ui.qml" line="295"/>
+        <location filename="GeneralSetupForm.ui.qml" line="323"/>
         <source>Make Match -&gt;</source>
         <translation type="unfinished"></translation>
     </message>

@@ -5,6 +5,24 @@ Item {
     id: item1
     width: 400
     height: 400
+    property alias item1: item1
+    property alias textBackToSetup: textBackToSetup
+    property alias rectangleBackToSetup: rectangleBackToSetup
+    property alias textMakeServer: textMakeServer
+    property alias rectangleMakeServer: rectangleMakeServer
+    property alias mouseAreaServer: mouseAreaServer
+    property alias textServer: textServer
+    property alias rectangleServer: rectangleServer
+    property alias mouseAreaScoreboard: mouseAreaScoreboard
+    property alias textScoreboard: textScoreboard
+    property alias rectangleScoreboard: rectangleScoreboard
+    property alias mouseAreaJury: mouseAreaJury
+    property alias textJury: textJury
+    property alias rectangleJury: rectangleJury
+    property alias mouseAreaHost: mouseAreaHost
+    property alias textHost: textHost
+    property alias rectangleHost: rectangleHost
+    property alias columnDeviceType: columnDeviceType
     property alias textBackToStart: textBackToStart
     property alias rectangleBackToStart: rectangleBackToStart
     property alias textContinueButton: textContinueButton
@@ -15,7 +33,6 @@ Item {
     property alias mouseAreaMakeServer: mouseAreaMakeServer
     property alias mouseAreaBackToSetup: mouseAreaBackToSetup
     property alias mouseAreaBackToStart: mouseAreaBackToStart
-    property alias column1: column1
     property alias stackView: stackView
     property alias mouseAreaContinue: mouseAreaContinue
 
@@ -33,6 +50,7 @@ Item {
             y: 0
             width: 200
             height: 400
+            visible: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 10
@@ -159,7 +177,7 @@ Item {
         }
 
         Column {
-            id: column1
+            id: columnDeviceType
             width: 200
             height: 400
             visible: false
@@ -168,7 +186,7 @@ Item {
             spacing: 10
 
             Text {
-                id: text4
+                id: textInfoDeviceType
                 text: qsTr("What should this device be?")
                 font.pixelSize: 24
                 horizontalAlignment: Text.AlignHCenter
@@ -178,15 +196,17 @@ Item {
             }
 
             Rectangle {
-                id: rectangle2
+                id: rectangleHost
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    id: text5
+                    id: textHost
+                    color: "#212121"
                     text: qsTr("Host")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -202,15 +222,17 @@ Item {
             }
 
             Rectangle {
-                id: rectangle3
+                id: rectangleJury
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    id: text6
+                    id: textJury
+                    color: "#212121"
                     text: qsTr("Jury")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -226,15 +248,17 @@ Item {
             }
 
             Rectangle {
-                id: rectangle4
+                id: rectangleScoreboard
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    id: text7
+                    id: textScoreboard
+                    color: "#212121"
                     text: qsTr("Scoreboard")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -250,15 +274,17 @@ Item {
             }
 
             Rectangle {
-                id: rectangle5
+                id: rectangleServer
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    id: text8
+                    id: textServer
+                    color: "#212121"
                     text: qsTr("Headless Server")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -282,16 +308,18 @@ Item {
             }
 
             Rectangle {
-                id: rectangle6
+                id: rectangleMakeServer
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenterOffset: 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 Text {
-                    id: text9
+                    id: textMakeServer
+                    color: "#212121"
                     text: qsTr("Make Match ->")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -307,14 +335,16 @@ Item {
             }
 
             Rectangle {
-                id: rectangle9
+                id: rectangleBackToSetup
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 Text {
-                    id: text11
+                    id: textBackToSetup
+                    color: "#212121"
                     text: qsTr("Back")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -332,4 +362,66 @@ Item {
             }
         }
     }
+    states: [
+        State {
+            name: "hostSelected"
+            PropertyChanges {
+                target: rectangleHost
+                color: "#85c3cf"
+                width: 210
+                height: 60
+                restoreEntryValues: true
+            }
+            PropertyChanges {
+                target: textHost
+                font.pixelSize: 26
+                restoreEntryValues: true
+            }
+        },
+        State {
+            name: "jurySelected"
+            PropertyChanges {
+                target: rectangleJury
+                color: "#85c3cf"
+                width: 210
+                height: 60
+                restoreEntryValues: true
+            }
+            PropertyChanges {
+                target: textJury
+                font.pixelSize: 26
+                restoreEntryValues: true
+            }
+        },
+        State {
+            name: "scoreboardSelected"
+            PropertyChanges {
+                target: rectangleScoreboard
+                color: "#85c3cf"
+                width: 210
+                height: 60
+                restoreEntryValues: true
+            }
+            PropertyChanges {
+                target: textScoreboard
+                font.pixelSize: 26
+                restoreEntryValues: true
+            }
+        },
+        State {
+            name: "serverSelected"
+            PropertyChanges {
+                target: rectangleServer
+                color: "#85c3cf"
+                width: 210
+                height: 60
+                restoreEntryValues: true
+            }
+            PropertyChanges {
+                target: textServer
+                font.pixelSize: 26
+                restoreEntryValues: true
+            }
+        }
+    ]
 }

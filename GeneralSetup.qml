@@ -3,7 +3,7 @@ import QtQuick 2.15
 GeneralSetupForm {
     Connections {
         target: mouseAreaContinue
-        function onClicked(mouse) { stackView.push(column1) }
+        function onClicked(mouse) { stackView.push(columnDeviceType) }
         function onEntered(mouse) {
             rectangleContinueButton.color = "#85c3cf"
             textContinueButton.font.pixelSize += 2
@@ -31,6 +31,34 @@ GeneralSetupForm {
         target: comboBoxJuries
         function onActivated() {
             comboBoxJuries.displayText = comboBoxJuries.currentText
+        }
+    }
+
+    Connections {
+        target: mouseAreaHost
+        function onClicked(mouse) {
+            item1.state = "hostSelected"
+        }
+    }
+
+    Connections {
+        target: mouseAreaJury
+        function onClicked(mouse) {
+            item1.state = "jurySelected"
+        }
+    }
+
+    Connections {
+        target: mouseAreaScoreboard
+        function onClicked(mouse) {
+            item1.state = "scoreboardSelected"
+        }
+    }
+
+    Connections {
+        target: mouseAreaServer
+        function onClicked(mouse) {
+            item1.state = "serverSelected"
         }
     }
 
