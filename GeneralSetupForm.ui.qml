@@ -5,7 +5,13 @@ Item {
     id: item1
     width: 400
     height: 400
-    property alias textInputMatchName: textInputMatchName
+    property alias textBackToStart: textBackToStart
+    property alias rectangleBackToStart: rectangleBackToStart
+    property alias textContinueButton: textContinueButton
+    property alias rectangleContinueButton: rectangleContinueButton
+    property alias comboBoxJuries: comboBoxJuries
+    property alias cbItems: cbItems
+    property alias textFieldMatchName: textFieldMatchName
     property alias mouseAreaMakeServer: mouseAreaMakeServer
     property alias mouseAreaBackToSetup: mouseAreaBackToSetup
     property alias mouseAreaBackToStart: mouseAreaBackToStart
@@ -19,10 +25,10 @@ Item {
         height: 200
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        initialItem: column
+        initialItem: columnBasicSettings
 
         Column {
-            id: column
+            id: columnBasicSettings
             x: 100
             y: 0
             width: 200
@@ -32,35 +38,32 @@ Item {
             spacing: 10
 
             Text {
-                id: text1
+                id: textInfoInputField
                 text: qsTr("Match Name:")
                 font.pixelSize: 24
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.bold: true
             }
 
-            Rectangle {
-                id: rectangle
+            TextField {
+                id: textFieldMatchName
                 width: 200
                 height: 50
-                color: "#ffffff"
-                radius: 15
-                border.width: 2
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                TextInput {
-                    id: textInputMatchName
-                    text: qsTr("Match#1")
-                    anchors.fill: parent
-                    font.pixelSize: 18
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.bold: false
+                horizontalAlignment: Text.AlignHCenter
+                font.bold: true
+                font.pointSize: 18
+                placeholderText: qsTr("#Match1")
+                background: Rectangle {
+                    id: rectangleInputMatchName
+                    color: "#34acba"
+                    radius: 15
+                    border.color: "#065464"
+                    border.width: 2
                 }
             }
 
             Text {
-                id: text2
+                id: textInfoJuries
                 text: qsTr("Number of Juries:")
                 font.pixelSize: 24
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -68,7 +71,13 @@ Item {
             }
 
             ComboBox {
-                id: comboBox
+                id: comboBoxJuries
+                width: 200
+                height: 50
+                font.bold: true
+                font.weight: Font.Normal
+                font.pointSize: 14
+                editable: false
                 anchors.horizontalCenter: parent.horizontalCenter
                 displayText: "Select number"
                 flat: false
@@ -84,19 +93,28 @@ Item {
                         text: "7"
                     }
                 }
+                background: Rectangle {
+                    id: rectangleDropDown
+                    color: "#34acba"
+                    radius: 15
+                    border.color: "#065464"
+                    border.width: 2
+                }
             }
 
             Rectangle {
-                id: rectangle1
+                id: rectangleContinueButton
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Text {
-                    id: text3
+                    id: textContinueButton
+                    color: "#212121"
                     text: qsTr("Continue")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -108,18 +126,21 @@ Item {
                 MouseArea {
                     id: mouseAreaContinue
                     anchors.fill: parent
+                    hoverEnabled: true
                 }
             }
 
             Rectangle {
-                id: rectangle8
+                id: rectangleBackToStart
                 width: 200
                 height: 50
-                color: "#ffffff"
+                color: "#34acba"
                 radius: 15
+                border.color: "#065464"
                 border.width: 2
                 Text {
-                    id: text10
+                    id: textBackToStart
+                    color: "#212121"
                     text: qsTr("Back")
                     anchors.fill: parent
                     font.pixelSize: 24
@@ -131,6 +152,7 @@ Item {
                 MouseArea {
                     id: mouseAreaBackToStart
                     anchors.fill: parent
+                    hoverEnabled: true
                 }
                 anchors.horizontalCenter: parent.horizontalCenter
             }
