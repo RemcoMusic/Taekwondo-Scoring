@@ -72,10 +72,10 @@ GameState *GameStateManager::getGamestate()
 
 
 /*playing around with the class, without UI*/
-#include "server/server.h"
+#include "server/network.h"
 void GameStateManager::quickTesting()
 {
-    Server *server = new Server();
+    Network *server = new Network(nullptr,serverRole::HOST);
     server->startServer();
 
 
