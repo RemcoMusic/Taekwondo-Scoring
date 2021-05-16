@@ -1,10 +1,16 @@
 #include "serverthread.h"
 
-
+QList<ServerThread*> ServerThread::activeConnections; //declaration of static variable
 ServerThread::ServerThread(qintptr ID, QObject *parent) :
     QThread(parent)
 {
     this->socketDescriptor = ID;
+    ServerThread::activeConnections.append(this);
+}
+
+ServerThread::~ServerThread()
+{
+    //cleanup
 }
 
 void ServerThread::run()
@@ -52,9 +58,8 @@ void ServerThread::readyRead()
 
 void ServerThread::disconnected()
 {
-    qDebug() << socketDescriptor << " Disconnected";
-
-
+    ServerThread::activeConnections.removeOne(this);
+    qDebug() << socketDescriptor << " Disconnected, remaining clients: "<< ServerThread::activeConnections.size();
     socket->deleteLater();
     exit(0);
 }

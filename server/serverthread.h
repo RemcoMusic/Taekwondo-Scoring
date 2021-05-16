@@ -11,8 +11,10 @@ class ServerThread : public QThread
     Q_OBJECT
 public:
     explicit ServerThread(qintptr ID, QObject *parent = 0);
-
+    ~ServerThread();
     void run();
+    static QList<ServerThread*> activeConnections;
+
 
 signals:
     void error(QTcpSocket::SocketError socketerror);

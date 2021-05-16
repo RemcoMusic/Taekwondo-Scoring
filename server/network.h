@@ -20,6 +20,7 @@ public:
     //void handleIncomingEvent;
 private:
     serverRole myRole;
+
 signals:
 
 public slots:
