@@ -25,7 +25,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #endif()
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick LinguistTools Network REQUIRED)
 
 set(TS_FILES Taekwondo-Scoring_en_US.ts)
 
@@ -34,6 +34,8 @@ set(PROJECT_SOURCES
         ui/connection.h ui/connection.cpp
         server/gamestate.h
         server/gamestatemanager.h server/gamestatemanager.cpp
+        server/server.h server/server.cpp
+        server/serverthread.h server/serverthread.cpp
         qml.qrc
         ${TS_FILES}
 )
@@ -62,7 +64,8 @@ endif()
 target_compile_definitions(Taekwondo-Scoring
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(Taekwondo-Scoring
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Network)
+
 
 set_target_properties(Taekwondo-Scoring PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

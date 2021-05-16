@@ -72,8 +72,13 @@ GameState *GameStateManager::getGamestate()
 
 
 /*playing around with the class, without UI*/
+#include "server/server.h"
 void GameStateManager::quickTesting()
 {
+    Server *server = new Server();
+    server->startServer();
+
+
     //set temp gamestate data
     gameState.version = QString::number(1);
     gameState.matchName = "Match#1";
