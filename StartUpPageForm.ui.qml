@@ -96,7 +96,7 @@ Item {
                 id: mouseAreaMakeButton
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: mainLoader.source = "GeneralSetup.qml"
+                onClicked: mainLoader.source = "CreateMatchPage.qml"
             }
         }
     }

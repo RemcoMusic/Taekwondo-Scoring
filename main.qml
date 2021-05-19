@@ -8,8 +8,9 @@ Window {
     title: qsTr("Taekwondo Scoring")
 
     Loader{
+        property bool createState: false
         id: mainLoader
         anchors.fill: parent
-        source: "StartUp.qml"
+        source: "StartUpPage.qml"
     }
 }

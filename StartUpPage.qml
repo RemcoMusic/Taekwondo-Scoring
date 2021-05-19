@@ -1,10 +1,10 @@
 import QtQuick 2.15
 
-StartUpForm {
+StartUpPageForm {
 
         Connections {
             target: mouseAreaMakeButton
-            function onClicked(mouse) { mainLoader.source = "GeneralSetup.qml" }
+            function onClicked(mouse) { mainLoader.source = "CreateMatchPage.qml" }
             function onEntered(mouse) {
                 rectangleMakeButton.color = "#85c3cf"
                 textMakeButton.font.pixelSize += 2
@@ -17,7 +17,7 @@ StartUpForm {
 
         Connections {
             target: mouseAreaJoinButton
-//            function onClicked(mouse) { mainLoader.source = "GeneralSetup.qml" }
+            function onClicked(mouse) { mainLoader.source = "JoinMatchPage.qml" }
             function onEntered(mouse) {
                 rectangleJoinButton.color = "#85c3cf"
                 textJoinButton.font.pixelSize += 2
