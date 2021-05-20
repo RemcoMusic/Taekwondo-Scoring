@@ -1,11 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>StartUp.qml</file>
-        <file>StartUpForm.ui.qml</file>
-        <file>GeneralSetup.qml</file>
-        <file>GeneralSetupForm.ui.qml</file>
-        <file>MatchSettings.qml</file>
-        <file>MatchSettingsForm.ui.qml</file>
+        <file>StartUpPage.qml</file>
+        <file>StartUpPageForm.ui.qml</file>
+        <file>CreateMatchPage.qml</file>
+        <file>CreateMatchPageForm.ui.qml</file>
+        <file>HostPage.qml</file>
+        <file>HostPageForm.ui.qml</file>
+        <file>JuryPage.qml</file>
+        <file>JuryPageForm.ui.qml</file>
+        <file>JoinMatchPage.qml</file>
+        <file>JoinMatchPageForm.ui.qml</file>
+        <file>RoleSelectionPage.qml</file>
+        <file>RoleSelectionPageForm.ui.qml</file>
     </qresource>
 </RCC>
