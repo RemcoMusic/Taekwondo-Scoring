@@ -5,7 +5,7 @@ Client::Client()
 {
     gameState.creationDate = "5/13/2021 - 19:32:10";
     gameState.version = "1";
-    gameState.matchName = "Pape-city";
+    gameState.matchName = "No-city";
     gameStateManager.setGameState(&gameState);
 }
 

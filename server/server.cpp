@@ -31,3 +31,10 @@ void Server::inputEvent(QString client, QString event)
 
 
 }
+
+void Server::newClientEvent(QTcpSocket* soc)
+{
+    QJsonDocument doc;
+    gameStateManager.serialize(doc);
+    ServerThread::updateClient(soc, doc.toBinaryData());
+}

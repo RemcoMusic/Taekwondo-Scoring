@@ -7,6 +7,7 @@ ServerThread::ServerThread(QTcpSocket *_socket, Server* s, QObject *parent) :
     server = s;
     socket = _socket;
     ServerThread::activeConnections.append(this);
+    server->newClientEvent(socket);
 }
 
 ServerThread::~ServerThread()
@@ -29,6 +30,11 @@ int ServerThread::updateAllClients(QByteArray data)
     for(int i = 0; i < activeConnections.size(); i++){
         activeConnections.at(i)->socket->write(data);
     }
+}
+
+int ServerThread::updateClient(QTcpSocket* s, QByteArray data)
+{
+    s->write(data);
 }
 
 void ServerThread::readyRead()

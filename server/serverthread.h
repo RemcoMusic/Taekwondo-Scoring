@@ -16,6 +16,7 @@ public:
     void run();
     static QList<ServerThread*> activeConnections;
     static int updateAllClients(QByteArray data);
+    static int updateClient(QTcpSocket *s, QByteArray data);
 
 signals:
     void error(QTcpSocket::SocketError socketerror);
