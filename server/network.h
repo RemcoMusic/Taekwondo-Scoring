@@ -3,30 +3,44 @@
 
 
 #include <QTcpServer>
+#include <QTcpSocket>
 #include "serverthread.h"
-#define HOST_PORT   80
-#define CLIENT_PORT 81
-enum class serverRole{
-    CLIENT,
-    HOST
+
+#define HOST_PORT   80  //port the server will run on
+
+enum class DeviceRole{
+    CLIENT,  //join a match
+    HOST    //host a match
 };
 
-class Network : public QTcpServer
+class Network : public QObject
 {
     Q_OBJECT
 public:
-    explicit Network(QObject *parent = 0, serverRole role = serverRole::CLIENT);
+    explicit Network(QObject *parent = 0, DeviceRole role = DeviceRole::CLIENT);
+
+    //for server
     void startServer();
-    //void handleIncomingEvent;
+
+    //for client
+    bool connectToServer(QString ip);
+    void sendEventToServer(QString e); // a string for now.. will become events
+
 private:
-    serverRole myRole;
+    DeviceRole myRole;        //local variable to tell if this is a client or server
+
+    QTcpSocket* clientSocket; //only used for client
+    QTcpServer* server;       //only used for server
 
 signals:
 
 public slots:
+    //for client
+    void handleClientEvent();
+    void clientDisconnected();
 
-protected:
-    void incomingConnection(qintptr socketDescriptor);
+    //for server
+    void incomingConnection();
 
 };
 

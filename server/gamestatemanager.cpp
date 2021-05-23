@@ -75,42 +75,47 @@ GameState *GameStateManager::getGamestate()
 #include "server/network.h"
 void GameStateManager::quickTesting()
 {
-    Network *server = new Network(nullptr,serverRole::HOST);
+    Network *server = new Network(nullptr,DeviceRole::HOST);
     server->startServer();
 
-
-    //set temp gamestate data
-    gameState.version = QString::number(1);
-    gameState.matchName = "Match#1";
-    gameState.creationDate = QDateTime::currentDateTime().toString();
-
+    Network *client = new Network(nullptr,DeviceRole::CLIENT);
+    client->connectToServer("127.0.0.1");
+    client->sendEventToServer("\nHello from the other side!");
+    client->sendEventToServer("\nHONDEATTAFIETTA");
 
 
+//    //set temp gamestate data
+//    gameState.version = QString::number(1);
+//    gameState.matchName = "Match#1";
+//    gameState.creationDate = QDateTime::currentDateTime().toString();
 
 
-    qDebug() << "Original Data: ";
-    qDebug() << gameState.matchName;
-    qDebug() << gameState.creationDate;
-    qDebug() << gameState.version <<"\n";
-
-    //serialize the gameState
-    QJsonDocument doc;
-    serialize(doc, GameStatePartition::ALL);
-
-    qDebug() << "formatted JSON \n --------------";
-    qDebug() << doc.toJson(QJsonDocument::Indented);
-    qDebug() << "--------------<\n";
-
-    //copy data
-    QJsonDocument copy = doc;
-
-    //deserialize data
-    deSerialize(copy);
 
 
-    qDebug() << "Data after deserialisation: ";
-    qDebug() << gameState.matchName;
-    qDebug() << gameState.creationDate;
-    qDebug() << gameState.version <<"\n";
+
+//    qDebug() << "Original Data: ";
+//    qDebug() << gameState.matchName;
+//    qDebug() << gameState.creationDate;
+//    qDebug() << gameState.version <<"\n";
+
+//    //serialize the gameState
+//    QJsonDocument doc;
+//    serialize(doc, GameStatePartition::ALL);
+
+//    qDebug() << "formatted JSON \n --------------";
+//    qDebug() << doc.toJson(QJsonDocument::Indented);
+//    qDebug() << "--------------<\n";
+
+//    //copy data
+//    QJsonDocument copy = doc;
+
+//    //deserialize data
+//    deSerialize(copy);
+
+
+//    qDebug() << "Data after deserialisation: ";
+//    qDebug() << gameState.matchName;
+//    qDebug() << gameState.creationDate;
+//    qDebug() << gameState.version <<"\n";
 
 }

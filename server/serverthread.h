@@ -10,7 +10,7 @@ class ServerThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ServerThread(qintptr ID, QObject *parent = 0);
+    explicit ServerThread(QTcpSocket *_socket, QObject *parent = 0);
     ~ServerThread();
     void run();
     static QList<ServerThread*> activeConnections;
@@ -25,7 +25,6 @@ public slots:
 
 private:
     QTcpSocket *socket;
-    qintptr socketDescriptor;
 };
 
 

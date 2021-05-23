@@ -1,10 +1,10 @@
 #include "serverthread.h"
 
 QList<ServerThread*> ServerThread::activeConnections; //declaration of static variable
-ServerThread::ServerThread(qintptr ID, QObject *parent) :
+ServerThread::ServerThread(QTcpSocket *_socket, QObject *parent) :
     QThread(parent)
 {
-    this->socketDescriptor = ID;
+    socket = _socket;
     ServerThread::activeConnections.append(this);
 }
 
@@ -16,17 +16,6 @@ ServerThread::~ServerThread()
 void ServerThread::run()
 {
     // thread starts here
-    qDebug() << " Thread started";
-
-    socket = new QTcpSocket();
-
-    // set the ID
-    if(!socket->setSocketDescriptor(this->socketDescriptor))
-    {
-        // something's wrong, we just emit a signal
-        emit error(socket->error());
-        return;
-    }
 
     // connect socket and signal
     // note - Qt::DirectConnection is used because it's multithreaded
@@ -36,7 +25,7 @@ void ServerThread::run()
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 
     // We'll have multiple clients, we want to know which is which
-    qDebug() << socketDescriptor << " Client connected";
+    qDebug() << socket->socketDescriptor() << " Client connected and running in ServerThread";
 
     // make this thread a loop,
     // thread will stay alive so that signal/slot to function properly
@@ -51,7 +40,7 @@ void ServerThread::readyRead()
     QByteArray Data = socket->readAll();
 
     // will write on server side window
-    qDebug() << socketDescriptor << " Data in: " << Data;
+    qDebug() << socket->socketDescriptor() << " Data in: " << Data;
 
     socket->write(Data);
 }
@@ -59,7 +48,7 @@ void ServerThread::readyRead()
 void ServerThread::disconnected()
 {
     ServerThread::activeConnections.removeOne(this);
-    qDebug() << socketDescriptor << " Disconnected, remaining clients: "<< ServerThread::activeConnections.size();
+    qDebug() << socket->socketDescriptor() << " Disconnected, remaining clients: "<< ServerThread::activeConnections.size();
     socket->deleteLater();
     exit(0);
 }
