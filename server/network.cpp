@@ -1,5 +1,6 @@
 #include "network.h"
 #include "serverthread.h"
+#include "QJsonObject"
 
 Network::Network(QObject *parent, DeviceRole role) :
     QObject(parent)
@@ -7,21 +8,28 @@ Network::Network(QObject *parent, DeviceRole role) :
     myRole = role;
 
     if(myRole == DeviceRole::HOST){
-        server = new QTcpServer(this);
+        serverSocket = new QTcpServer(this);
     } else {
         clientSocket = new QTcpSocket(this);
     }
 }
 
-void Network::startServer()
+void Network::startServer(Server *s)
 {
-    if(!server->listen(QHostAddress::Any,HOST_PORT))
+    server = s;
+    if(!serverSocket->listen(QHostAddress::Any,HOST_PORT))
     {
         qDebug() << "Could not start Hosting Server";
     } else{
         qDebug() << "Server started";
     }
-    connect(server,SIGNAL(newConnection()),this,SLOT(incomingConnection()));
+    connect(serverSocket,SIGNAL(newConnection()),this,SLOT(incomingConnection()));
+}
+
+
+void Network::attatchClient(Client *c)
+{
+    client = c;
 }
 
 //used when this class must establish a connection to the server
@@ -37,6 +45,20 @@ bool Network::connectToServer(QString ip)
     return false;
 }
 
+bool Network::isConnectedToServer()
+{
+    return clientSocket->isOpen();
+}
+
+void Network::disconnectFromServer()
+{
+    if(clientSocket->isOpen()){
+        clientSocket->close();
+    }
+    disconnect(clientSocket, SIGNAL(readyRead()));
+    disconnect(clientSocket, SIGNAL(disconnected()));
+}
+
 void Network::sendEventToServer(QString e)
 {
     if(clientSocket->isOpen()){
@@ -49,7 +71,9 @@ void Network::sendEventToServer(QString e)
 void Network::handleClientEvent()
 {
     QByteArray data = clientSocket->readAll();
-    qDebug() << "client received data: " <<data;
+//    QJsonDocument doc = QJsonDocument::fromBinaryData(data);
+//    qDebug() << "client: "<< clientSocket->socketDescriptor() << " received data: " <<doc;
+    client->updateGameState(data);
 }
 
 void Network::clientDisconnected()
@@ -61,11 +85,11 @@ void Network::clientDisconnected()
 void Network::incomingConnection()
 {
     // We have a new connection
-    QTcpSocket* newClient = server->nextPendingConnection();
+    QTcpSocket* newClient = serverSocket->nextPendingConnection();
     qDebug() << "Server has new connection for client: " << newClient->socketDescriptor()<< ". Connecting...";
 
     //if(myRole == DeviceRole::HOST){
-        ServerThread *thread = new ServerThread(newClient, this);
+        ServerThread *thread = new ServerThread(newClient, server, this);
         connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
         //return calls from client to host. and call the server_handler();
         thread->start();

@@ -8,17 +8,15 @@ class GameStateManager
 {
 public:
     GameStateManager();
-    size_t serialize(QJsonDocument &json, GameStatePartition partition);
+    size_t serialize(QJsonDocument &json);
     void deSerialize(QJsonDocument &json);
 
    GameState* getGamestate();
+   void setGameState(GameState* gameState);
 
-
-
-   void quickTesting();
 
 private:
-   GameState gameState;
+   GameState* gameState;
 
 };
 

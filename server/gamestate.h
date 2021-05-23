@@ -5,12 +5,6 @@
 #include <QList>
 #include "stdint.h"
 
-enum class GameStatePartition{
-    ALL,
-    POINTS,
-    NOTHING
-};
-
 enum class Belt{
     WHITE,
     WHITEYELLOW,

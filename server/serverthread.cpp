@@ -1,9 +1,10 @@
 #include "serverthread.h"
 
 QList<ServerThread*> ServerThread::activeConnections; //declaration of static variable
-ServerThread::ServerThread(QTcpSocket *_socket, QObject *parent) :
+ServerThread::ServerThread(QTcpSocket *_socket, Server* s, QObject *parent) :
     QThread(parent)
 {
+    server = s;
     socket = _socket;
     ServerThread::activeConnections.append(this);
 }
@@ -15,40 +16,40 @@ ServerThread::~ServerThread()
 
 void ServerThread::run()
 {
-    // thread starts here
-
-    // connect socket and signal
-    // note - Qt::DirectConnection is used because it's multithreaded
-    //        This makes the slot to be invoked immediately, when the signal is emitted.
-
     connect(socket, SIGNAL(readyRead()), this, SLOT(readyRead()), Qt::DirectConnection);
     connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
 
-    // We'll have multiple clients, we want to know which is which
     qDebug() << socket->socketDescriptor() << " Client connected and running in ServerThread";
 
-    // make this thread a loop,
-    // thread will stay alive so that signal/slot to function properly
-    // not dropped out in the middle when thread dies
-
     exec();
+}
+
+int ServerThread::updateAllClients(QByteArray data)
+{
+    for(int i = 0; i < activeConnections.size(); i++){
+        activeConnections.at(i)->socket->write(data);
+    }
 }
 
 void ServerThread::readyRead()
 {
     // get the information
-    QByteArray Data = socket->readAll();
+    QByteArray data = socket->readAll();
 
-    // will write on server side window
-    qDebug() << socket->socketDescriptor() << " Data in: " << Data;
 
-    socket->write(Data);
+    //qDebug() << socket->socketDescriptor() << " Data in: " << Data;
+    server->inputEvent(QString::number(socket->socketDescriptor()),QString(data));
+
+    //socket->write(Data); //echo data back as test
 }
 
 void ServerThread::disconnected()
 {
     ServerThread::activeConnections.removeOne(this);
     qDebug() << socket->socketDescriptor() << " Disconnected, remaining clients: "<< ServerThread::activeConnections.size();
+    socket->close();
     socket->deleteLater();
+    disconnect(socket, SIGNAL(readyRead()));
+    disconnect(socket, SIGNAL(disconnected()));
     exit(0);
 }
