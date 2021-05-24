@@ -1,6 +1,8 @@
 #include "server.h"
 
 #include "serverthread.h"
+#include <QJsonObject>
+#include <QJsonDocument>
 
 Server::Server()
 {
@@ -37,9 +39,9 @@ void Server::incomingConnection()
     //}
 
 
-    QJsonDocument doc;
+    QJsonObject doc;
     gameStateManager.serialize(doc);
-    ServerThread::updateClient(newClient,doc.toBinaryData());
+    ServerThread::updateClient(newClient, QJsonDocument(doc).toJson());
 
 }
 void Server::inputEvent(uint32_t id, QByteArray data)
@@ -52,13 +54,11 @@ void Server::inputEvent(uint32_t id, QByteArray data)
 
 
     //if(importantEvent){
-        QJsonDocument doc;
+        QJsonObject doc;
         gameStateManager.serialize(doc);
-        ServerThread::updateAllClients(doc.toBinaryData());
+        ServerThread::updateAllClients(QJsonDocument(doc).toJson());
     //}
     //else {
         //set timer to update client in a small amount of time (eg 1 second), to reduce network traffic.
     //}
-
-
 }

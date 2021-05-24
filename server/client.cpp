@@ -54,7 +54,9 @@ GameState *Client::getGameState()
 void Client::updateGameState(QByteArray data)
 {
     //QByteArray data = clientSocket->readAll();
-    QJsonDocument doc = QJsonDocument::fromBinaryData(data);
+
+//    QJsonDocument tempConversion = QJsonDocument::fromJson(data);
+    QJsonObject doc = QJsonDocument::fromJson(data).object();
     gameStateManager.deSerialize(doc);
 
     qDebug() << "client gamestate got updated: " << gameState.matchName;
