@@ -1,13 +1,11 @@
 #include "serverthread.h"
 
 QList<ServerThread*> ServerThread::activeConnections; //declaration of static variable
-ServerThread::ServerThread(QTcpSocket *_socket, Server* s, QObject *parent) :
+ServerThread::ServerThread(QTcpSocket *_socket, QObject *parent) :
     QThread(parent)
 {
-    server = s;
     socket = _socket;
     ServerThread::activeConnections.append(this);
-    server->newClientEvent(socket);
 }
 
 ServerThread::~ServerThread()
@@ -44,8 +42,7 @@ void ServerThread::readyRead()
 
 
     //qDebug() << socket->socketDescriptor() << " Data in: " << Data;
-    server->inputEvent(QString::number(socket->socketDescriptor()),QString(data));
-
+    emit inComingData(socket->socketDescriptor(),data);
     //socket->write(Data); //echo data back as test
 }
 

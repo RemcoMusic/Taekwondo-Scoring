@@ -34,7 +34,6 @@ set(PROJECT_SOURCES
         ui/connection.h ui/connection.cpp
         server/gamestate.h
         server/gamestatemanager.h server/gamestatemanager.cpp
-        server/network.h server/network.cpp
         server/serverthread.h server/serverthread.cpp
         server/server.h server/server.cpp
         server/client.h server/client.cpp

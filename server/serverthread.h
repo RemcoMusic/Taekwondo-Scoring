@@ -5,13 +5,13 @@
 #include <QThread>
 #include <QTcpSocket>
 #include <QDebug>
-#include "server.h"
+#include <QByteArray>
 
 class ServerThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ServerThread(QTcpSocket *_socket,Server* s, QObject *parent = 0);
+    explicit ServerThread(QTcpSocket *_socket, QObject *parent = 0);
     ~ServerThread();
     void run();
     static QList<ServerThread*> activeConnections;
@@ -20,6 +20,7 @@ public:
 
 signals:
     void error(QTcpSocket::SocketError socketerror);
+    void inComingData(uint32_t id, QByteArray data);
 
 public slots:
     void readyRead();
@@ -27,7 +28,6 @@ public slots:
 
 private:
     QTcpSocket *socket;
-    Server* server;
 };
 
 

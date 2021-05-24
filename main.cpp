@@ -7,7 +7,6 @@
 
 #include "ui/connection.h"
 #include "server/gamestatemanager.h"    //temp.. when testing
-#include "server/network.h"             //temp.. when testing
 #include "server/server.h"              //temp.. when testing
 #include "server/client.h"              //temp.. when testing
 
@@ -49,13 +48,11 @@ int main(int argc, char *argv[])
         Server *s = new Server(); //actual server logic
         Client *c = new Client(); //actual client
 
-        Network *server = new Network(nullptr,DeviceRole::HOST);
-        server->startServer(s);
+        s->startServer();
 
-        Network *clientConnection  = new Network(nullptr,DeviceRole::CLIENT);
-        clientConnection->connectToServer("127.0.0.1");
-        clientConnection->attatchClient(c);
-        clientConnection->sendEventToServer("wololololo");
+        c->connectToServer("127.0.0.1");
+        c->sendEventToServer("lol+lol=hihi");
+
 
 
 

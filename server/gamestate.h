@@ -5,6 +5,8 @@
 #include <QList>
 #include "stdint.h"
 
+#define HOST_PORT   80  //port the server will run on
+
 enum class Belt{
     WHITE,
     WHITEYELLOW,
