@@ -3,6 +3,7 @@
 
 #include "gamestate.h"
 #include "QJsonObject"
+#include "QJsonArray"
 
 class GameStateManager
 {
@@ -17,7 +18,8 @@ public:
 
 private:
    GameState* gameState;
-
+   QJsonArray serializeNestedData();
+   void deSerializeNestedData(QJsonArray jsonArray);
 };
 
 #endif // GAMESTATEMANAGER_H
